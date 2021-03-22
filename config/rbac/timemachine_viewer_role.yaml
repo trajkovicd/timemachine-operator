@@ -1,0 +1,20 @@
+# permissions for end users to view timemachines.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: timemachine-viewer-role
+rules:
+- apiGroups:
+  - tm.solution-soft.com
+  resources:
+  - timemachines
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - tm.solution-soft.com
+  resources:
+  - timemachines/status
+  verbs:
+  - get

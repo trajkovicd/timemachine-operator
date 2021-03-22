@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    control-plane: timemachine-operator
+  name: system
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: timemachine-operator
+  namespace: system
+  labels:
+    control-plane: timemachine-operator
+spec:
+  selector:
+    matchLabels:
+      control-plane: timemachine-operator
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        control-plane: timemachine-operator
+    spec:
+      serviceAccountName: timemachine-operator
+      containers:
+        - name: manager
+          image: quay.io/trajkovicd/sidecar:v1.0.1
+          imagePullPolicy: Always
+          args:
+            - "--enable-leader-election"
+            - "--leader-election-id=timemachine-operator"
+          env:
+            - name: ANSIBLE_GATHERING
+              value: explicit
+            - name: OPERATOR_NAME
+              value: "timemachine-operator"
+            - name: RELATED_IMAGE_TIMEMACHINE
+              value: registry.connect.redhat.com/rhel-timemachine-container/virtual-clock-testing-tool:sidecar-18.03.7
+      terminationGracePeriodSeconds: 10

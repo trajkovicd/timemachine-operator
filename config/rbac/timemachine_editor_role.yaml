@@ -1,0 +1,24 @@
+# permissions for end users to edit timemachines.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: timemachine-editor-role
+rules:
+- apiGroups:
+  - tm.solution-soft.com
+  resources:
+  - timemachines
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - tm.solution-soft.com
+  resources:
+  - timemachines/status
+  verbs:
+  - get

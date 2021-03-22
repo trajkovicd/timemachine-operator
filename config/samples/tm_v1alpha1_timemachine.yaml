@@ -1,0 +1,12 @@
+apiVersion: tm.solution-soft.com/v1alpha1
+kind: TimeMachine
+metadata:
+  name: timemachine-sample
+spec:
+  image: registry.connect.redhat.com/rhel-timemachine-container/virtual-clock-testing-tool:sidecar-18.03.7
+  imagePullSecrets: []
+  replicaCount: 1
+  service:
+    port: 7800
+    targetPort: 7800
+    type: NodePort  

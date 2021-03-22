@@ -1,0 +1,123 @@
+---
+# tasks file for TimeMachine
+- name: create pvc for timemachine
+  k8s:
+     definition:
+        kind: PersistentVolumeClaim
+        apiVersion: v1
+        metadata:
+          name: timemachine-pvc
+          namespace: '{{ ansible_operator_meta.namespace }}'
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 50Mi
+- name: create config map timemachine-configmap
+  k8s:
+    definition:
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: timemachine-configmap
+        namespace: '{{ ansible_operator_meta.namespace }}'
+      data:
+        ld.so.preload: /opt/ssstm/$LIB/libssstm.so
+- name: deploy timemachine  
+  k8s:
+    definition:
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: timemachine
+        namespace: '{{ ansible_operator_meta.namespace }}'
+        labels:
+          app: timemachine
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: timemachine
+        template:
+          metadata:
+            labels:
+              app: timemachine
+          spec:
+            serviceAccount: timemachine-operator
+            containers:
+            - name: timemachine
+              image: "{{ lookup('env','RELATED_IMAGE_TIMEMACHINE') }}"
+              imagePullPolicy: Always              
+              env:
+              - name: TM_LICHOST
+                value: {{ TM_LICHOST }}
+              - name: TM_LICPORT
+                value: {{ TM_LICPORT }}
+              - name: TM_LICPASS
+                value: {{ TM_LICPASS }}
+              volumeMounts:
+                - mountPath: /opt/ssstm
+                  name: timemachine-volume-mount
+                  subPath: mongodb              
+                - mountPath: /etc/ld.so.preload
+                  name: timemachine-configmap
+                  subPath: ld.so.preload              
+              securityContext: {}                
+              ports:
+                - name: timemachine
+                  containerPort: 7800
+            volumes:
+            - name: timemachine-volume-mount
+              persistentVolumeClaim:
+              claimName: timemachine-pvc                  
+            - configMap: 
+                defaultMode: 420
+                name: timemachine-configmap
+              name: timemachine-configmap       
+          serviceAccountName: timemachine-operator
+          serviceAccount: timemachine-operator
+        strategy:
+          type: Recreate
+- name: create service for timemachine
+  k8s:
+    definition:
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: timemachine
+        namespace: '{{ ansible_operator_meta.namespace }}'
+        labels:
+          app: timemachine
+      spec:
+        selector:
+          app: timemachine
+        ports:
+          - protocol: TCP
+            port: 7800
+            targetPort: 7800
+            nodePort: 30454
+        type: NodePort
+- name: create route for timemachine
+  k8s:
+    definition:
+      apiVersion: route.openshift.io/v1
+      kind: Route
+      metadata:
+        name: timemachine-route
+        namespace: '{{ ansible_operator_meta.namespace }}'
+        labels:
+          app: timemachine
+      spec:
+        host:
+        to:
+          kind: Service
+          name: timemachine
+          weight: 100
+        port:
+          targetPort: 7800
+        tls:
+          termination: edge
+          insecureEdgeTerminationPolicy: Allow
+        wildcardPolicy: None
+
