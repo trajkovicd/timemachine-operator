@@ -43,102 +43,102 @@ rules:
   ##
   ## Rules for tm.solution-soft.com/v1alpha1, Kind: TimeMachine
   ##
-  - apiGroups:
-    - tm.solution-soft.com
-    resources:
-    - timemachines
-    - timemachines/status
-    - timemachines/finalizers
-    verbs:
-    - create
-    - delete
-    - get
-    - list
-    - patch
-    - update
-    - watch
-  - verbs:
-    - "*"
-    apiGroups:
-    - "route.openshift.io"
-    resources:
-    - "routes"
-  - verbs:
-    - "*"
-    apiGroups:
-    - ""
-    resources:
-    - "persistentvolumeclaims"
-    - "persistentvolumes"
-    - "nodes"
-    - "events"
-    - "secrets"
-    - "secrets/finalizers"
-    - "pods"
-    - "pods/finalizers"
-    - "serviceaccounts"
-    - "services"
-    - "configmaps"
-  - verbs:
-    - "*"
-    apiGroups:
-    - "apps"
-    resources:
-    - "deployments"
-    - "daemonsets"
-    - "replicasets"
-    - "statefulsets"
-  - verbs:
-    - "*"
-    apiGroups:
-    - "networking.k8s.io"
-    resources:
-    - "ingresses"
-  - apiGroups:
-    - "security.openshift.io"
-    resourceNames:
-    - "anyuid"
-    resources:
-    - "securitycontextconstraints"
-    verbs:
-    - "use"
-  - apiGroups:
-    - apiextensions.k8s.io
-    resources:
-    - customresourcedefinitions
-    verbs:
-    - create
-    - delete
-    - get
-    - list
-    - patch
-    - update
-    - watch
-  - apiGroups:
-    - ""
-    resources:
-    - secrets
-    - secrets/finalizers
-    - pods
-    - pods/finalizers
-    - pods/exec
-    - pods/log
-    - services
-    - services/finalizers
-    - endpoints
-    - persistentvolumeclaims
-    - persistentvolumes
-    - persistentvolumeclaims/finalizers
-    - persistentvolumes/finalizers
-    - nodes
-    - events
-    - configmaps
-    verbs:
-    - create
-    - delete
-    - get
-    - list
-    - patch
-    - update
-    - watch
+ - apiGroups:
+   - tm.solution-soft.com
+   resources:
+   - timemachines
+   - timemachines/status
+   - timemachines/finalizers
+   verbs:
+   - create
+   - delete
+   - get
+   - list
+   - patch
+   - update
+   - watch
+ - verbs:
+   - "*"
+   apiGroups:
+   - "route.openshift.io"
+   resources:
+   - "routes"
+ - verbs:
+   - "*"
+   apiGroups:
+   - ""
+   resources:
+   - "persistentvolumeclaims"
+   - "persistentvolumes"
+   - "nodes"
+   - "events"
+   - "secrets"
+   - "secrets/finalizers"
+   - "pods"
+   - "pods/finalizers"
+   - "serviceaccounts"
+   - "services"
+   - "configmaps"
+ - verbs:
+   - "*"
+   apiGroups:
+   - "apps"
+   resources:
+   - "deployments"
+   - "daemonsets"
+   - "replicasets"
+   - "statefulsets"
+ - verbs:
+   - "*"
+   apiGroups:
+   - "networking.k8s.io"
+   resources:
+   - "ingresses"
+ - apiGroups:
+   - "security.openshift.io"
+   resourceNames:
+   - "anyuid"
+   resources:
+   - "securitycontextconstraints"
+   verbs:
+   - "use"
+ - apiGroups:
+   - apiextensions.k8s.io
+   resources:
+   - customresourcedefinitions
+   verbs:
+   - create
+   - delete
+   - get
+   - list
+   - patch
+   - update
+   - watch
+ - apiGroups:
+   - ""
+   resources:
+   - secrets
+   - secrets/finalizers
+   - pods
+   - pods/finalizers
+   - pods/exec
+   - pods/log
+   - services
+   - services/finalizers
+   - endpoints
+   - persistentvolumeclaims
+   - persistentvolumes
+   - persistentvolumeclaims/finalizers
+   - persistentvolumes/finalizers
+   - nodes
+   - events
+   - configmaps
+   verbs:
+   - create
+   - delete
+   - get
+   - list
+   - patch
+   - update
+   - watch
 #+kubebuilder:scaffold:rules
