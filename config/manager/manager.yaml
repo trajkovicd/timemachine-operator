@@ -9,7 +9,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: timemachine-operator
-  namespace: system
+#  namespace: system
   labels:
     control-plane: timemachine-operator
 spec:
