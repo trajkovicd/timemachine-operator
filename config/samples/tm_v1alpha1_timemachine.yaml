@@ -3,9 +3,9 @@ kind: TimeMachine
 metadata:
   name: timemachine-sample
 spec:
-  TM_LICHOST: "172.0.0.1"
-  TM_LICPORT: "57777"
-  TM_LICPASS: "docker"
+  tm_lichost: "172.0.0.1"
+  tm_licport: "57777"
+  tm_licpass: "docker"
   imagePullSecrets: []
   replicaCount: 1
   service:
