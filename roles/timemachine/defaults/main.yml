@@ -1,2 +1,10 @@
 ---
 # defaults file for TimeMachine
+
+
+size: 1
+image: registry.connect.redhat.com/rhel-timemachine-container/virtual-clock-testing-tool:sidecar-18.03.7
+#"{{ lookup('env','RELATED_IMAGE_TIMEMACHINE') | quote }}"
+TM_LICHOST: 172.0.0.1
+TM_LICPORT: 57777
+TM_LICPASS: docker

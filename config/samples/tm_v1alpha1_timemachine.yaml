@@ -3,7 +3,9 @@ kind: TimeMachine
 metadata:
   name: timemachine-sample
 spec:
-  image: registry.connect.redhat.com/rhel-timemachine-container/virtual-clock-testing-tool:sidecar-18.03.7
+  TM_LICHOST: 172.0.0.1
+  TM_LICPORT: 57777
+  TM_LICPASS: docker
   imagePullSecrets: []
   replicaCount: 1
   service:
