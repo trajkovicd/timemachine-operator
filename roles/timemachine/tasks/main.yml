@@ -24,7 +24,7 @@
         namespace: '{{ ansible_operator_meta.namespace }}'
       data:
         ld.so.preload: /opt/ssstm/$LIB/libssstm.so
-- name: deploy timemachine  
+- name: deploy timemachine
   k8s:
     definition:
       apiVersion: apps/v1
@@ -120,4 +120,3 @@
           termination: edge
           insecureEdgeTerminationPolicy: Allow
         wildcardPolicy: None
-
