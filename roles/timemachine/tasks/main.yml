@@ -51,11 +51,11 @@
               imagePullPolicy: Always              
               env:
               - name: TM_LICHOST
-                value: "{{ TM_LICHOST }}"
+                value: "{{ tm_lichost }}"
               - name: TM_LICPORT
-                value: "{{ TM_LICPORT }}"
+                value: "{{ tm_licport }}"
               - name: TM_LICPASS
-                value: "{{ TM_LICPASS }}"
+                value: "{{ tm_licpass }}"
               volumeMounts:
                 - mountPath: /opt/ssstm
                   name: timemachine-volume-mount
