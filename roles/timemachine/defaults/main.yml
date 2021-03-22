@@ -4,7 +4,5 @@
 
 size: 1
 image: registry.connect.redhat.com/rhel-timemachine-container/virtual-clock-testing-tool:sidecar-18.03.7
-#"{{ lookup('env','RELATED_IMAGE_TIMEMACHINE') | quote }}"
-tm_lichost: 172.0.0.1
-tm_licport: 57777
-tm_licpass: docker
+
+
