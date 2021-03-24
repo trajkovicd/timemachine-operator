@@ -59,7 +59,6 @@
               volumeMounts:
                 - mountPath: /opt/ssstm
                   name: timemachine-volume-mount
-                  subPath: mongodb              
                 - mountPath: /etc/ld.so.preload
                   name: timemachine-configmap
                   subPath: ld.so.preload              
