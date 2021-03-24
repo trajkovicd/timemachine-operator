@@ -9,21 +9,22 @@
           name: timemachine-pvc
           namespace: '{{ ansible_operator_meta.namespace }}'
         spec:
+          storageClassName: "{{ persistentvolume.storageclass }}"
           accessModes:
-          - ReadWriteOnce
+          - ReadWriteMany
           resources:
             requests:
               storage: 50Mi
-- name: create config map timemachine-configmap
-  k8s:
-    definition:
-      apiVersion: v1
-      kind: ConfigMap
-      metadata:
-        name: timemachine-configmap
-        namespace: '{{ ansible_operator_meta.namespace }}'
-      data:
-        ld.so.preload: /opt/ssstm/$LIB/libssstm.so
+#- name: create config map timemachine-configmap
+#  k8s:
+#    definition:
+#      apiVersion: v1
+#      kind: ConfigMap
+#      metadata:
+#        name: timemachine-configmap
+#        namespace: '{{ ansible_operator_meta.namespace }}'
+#      data:
+#        ld.so.preload: /opt/ssstm/$LIB/libssstm.so
 - name: deploy timemachine
   k8s:
     definition:
@@ -59,9 +60,9 @@
               volumeMounts:
                 - mountPath: /opt/ssstm
                   name: timemachine-volume-mount
-                - mountPath: /etc/ld.so.preload
-                  name: timemachine-configmap
-                  subPath: ld.so.preload              
+#                - mountPath: /etc/ld.so.preload
+#                  name: timemachine-configmap
+#                  subPath: ld.so.preload              
               securityContext: {}                
               ports:
                 - name: timemachine
@@ -70,10 +71,10 @@
             - name: timemachine-volume-mount
               persistentVolumeClaim:
               claimName: timemachine-pvc                  
-            - configMap: 
-                defaultMode: 420
-                name: timemachine-configmap
-              name: timemachine-configmap       
+#            - configMap: 
+#                defaultMode: 420
+#                name: timemachine-configmap
+#              name: timemachine-configmap       
           serviceAccountName: timemachine-operator
           serviceAccount: timemachine-operator
         strategy:

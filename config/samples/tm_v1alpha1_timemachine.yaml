@@ -6,6 +6,8 @@ spec:
   tm_lichost: "54.152.68.164"
   tm_licport: "57777"
   tm_licpass: "qwaszx"
+  persistentvolume:
+    storageclass: "ibmc-file-bronze-gid"
   imagePullSecrets: []
   replicaCount: 1
   service:
