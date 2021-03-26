@@ -11,7 +11,7 @@
         spec:
           storageClassName: "{{ persistentvolume.storageclass }}"
           accessModes:
-          - ReadWriteMany
+            - ReadWriteMany
           resources:
             requests:
               storage: 50Mi
@@ -70,7 +70,7 @@
             volumes:
             - name: timemachine-volume-mount
               persistentVolumeClaim:
-              claimName: timemachine-pvc                  
+                claimName: timemachine-pvc                  
 #            - configMap: 
 #                defaultMode: 420
 #                name: timemachine-configmap
