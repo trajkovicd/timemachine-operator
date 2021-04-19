@@ -3,12 +3,18 @@
 # Default values for TimeMachine.
 
 # timemachine image URL
-image: registry.connect.redhat.com/rhel-timemachine-container/virtual-clock-testing-tool:sidecar-18.03.7
+image: registry.connect.redhat.com/rhel-timemachine-container/virtual-clock-testing-tool:sidecar-18.03.14
 # To pass image pull secrets
 imagePullSecrets: []
 
 service:
+  name: timemachine
   type: NodePort
   port: 7800
-  targetPort: 7800
-
+  targetPort: timemachine
+  
+service:
+  name: server-info
+  type: NodePort
+  port: 5777
+  targetPort: server-info

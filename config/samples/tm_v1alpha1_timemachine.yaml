@@ -10,7 +10,3 @@ spec:
     storageclass: "ibmc-file-silver-gid"
   imagePullSecrets: []
   replicaCount: 1
-  service:
-    port: 7800
-    targetPort: 7800
-    type: NodePort  

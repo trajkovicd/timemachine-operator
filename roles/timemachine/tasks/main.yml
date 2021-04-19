@@ -67,6 +67,8 @@
               ports:
                 - name: timemachine
                   containerPort: 7800
+                - name: server-info
+                  containerPort: 5777
             volumes:
             - name: timemachine-volume-mount
               persistentVolumeClaim:
@@ -95,8 +97,27 @@
         ports:
           - protocol: TCP
             port: 7800
-            targetPort: 7800
-            nodePort: 30454
+            targetPort: timemachine
+#            nodePort: 30454
+        type: NodePort
+- name: create service for server-info
+  k8s:
+    definition:
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: server-info
+        namespace: '{{ ansible_operator_meta.namespace }}'
+        labels:
+          app: timemachine
+      spec:
+        selector:
+          app: timemachine
+        ports:
+          - protocol: TCP
+            port: 5777
+            targetPort: server-info
+#            nodePort: 31454
         type: NodePort
 - name: create route for timemachine
   k8s:

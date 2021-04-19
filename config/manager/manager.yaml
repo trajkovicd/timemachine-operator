@@ -24,7 +24,7 @@ spec:
       serviceAccountName: timemachine-operator
       containers:
         - name: manager
-          image: quay.io/trajkovicd/sidecar:v1.0.1
+          image: registry.connect.redhat.com/rhel-timemachine-container/timemachine-operator:v1.0.1
           imagePullPolicy: Always
           args:
             - "--enable-leader-election"
@@ -35,5 +35,5 @@ spec:
             - name: OPERATOR_NAME
               value: "timemachine-operator"
             - name: RELATED_IMAGE_TIMEMACHINE
-              value: registry.connect.redhat.com/rhel-timemachine-container/virtual-clock-testing-tool:sidecar-18.03.7
+              value: registry.connect.redhat.com/rhel-timemachine-container/virtual-clock-testing-tool:sidecar-18.03.14
       terminationGracePeriodSeconds: 10

@@ -1,0 +1,46 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[]'
+    capabilities: Basic Install
+  name: timemachine-operator.v0.0.0
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions: {}
+  description: Time Machine operator enables time travel of OpenShift pods, without the need for cging the system clock on any of the cluster nodes
+  displayName: Time Machine Operator
+  icon:
+  - base64data: ""
+    mediatype: ""
+  install:
+    spec:
+      deployments: null
+    strategy: ""
+  installModes:
+  - supported: false
+    type: OwnNamespace
+  - supported: false
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - timemachine-operator
+  - time-travel
+  - time-shift
+  - solution-soft
+  - time-machine
+  links:
+  - name: Timemachine Operator
+    url: https://timemachine-operator.domain
+  maintainers:
+  - email: dtrajkovic@solution-soft.com
+    name: Dragan-Trajkovic
+  maturity: alpha
+  provider:
+    name: SolutionSoft Systems, Inc.
+    url: https://solution-soft.com
+  version: 0.0.0
