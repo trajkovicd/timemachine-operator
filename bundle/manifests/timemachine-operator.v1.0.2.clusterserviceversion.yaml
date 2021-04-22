@@ -15,7 +15,6 @@ metadata:
             "persistentvolume": {
               "storageclass": "ibmc-file-silver-gid"
             },
-            "replicaCount": 1,
             "tm_lichost": "54.152.68.164",
             "tm_licpass": "qwaszx",
             "tm_licport": "57777"
@@ -24,19 +23,21 @@ metadata:
       ]
     capabilities: Basic Install
     categories: Developer Tools
-    certified: "true"
+#    certified: "true"
     description: Time Machine operator enables time travel of OpenShift pods, without the need for changing the system clock on any of the cluster nodes
     containerImage: registry.connect.redhat.com/rhel-timemachine-container/timemachine-operator:v1.0.1
     createdAt: 2021-04-15T09:43:59Z
-    repository: NA
+#    repository: NA
     support: SolutionSoft Systems, Inc. - support@solution-soft.com
     operators.operatorframework.io/builder: operator-sdk-v1.4.0+git
     operators.operatorframework.io/project_layout: ansible.sdk.operatorframework.io/v1
-  name: timemachine-operator.v1.0.1
+  name: timemachine-operator.v1.0.2
   namespace: placeholder
 spec:
   replaces: time-machine-operator4.v0.0.4
-  version: 1.0.1
+  version: 1.0.2
+  skips:
+    - timemachine-operator.v1.0.1
   apiservicedefinitions: {}
   customresourcedefinitions:
     owned:
@@ -242,9 +243,9 @@ spec:
               terminationGracePeriodSeconds: 10
     strategy: deployment
   installModes:
-  - supported: false
+  - supported: true
     type: OwnNamespace
-  - supported: false
+  - supported: true
     type: SingleNamespace
   - supported: false
     type: MultiNamespace
@@ -265,5 +266,5 @@ spec:
   maturity: alpha
   provider:
     name: SolutionSoft Systems, Inc.
-    url: https://solution-soft.com
+#    url: https://solution-soft.com
 #  version: 1.0.1
