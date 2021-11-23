@@ -9,7 +9,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: timemachine-operator
-#  namespace: timemachine-operator-system
   labels:
     control-plane: timemachine-operator
 spec:
@@ -28,7 +27,7 @@ spec:
       - args:
         - --leader-elect
         - --leader-election-id=timemachine-operator
-        image: registry.connect.redhat.com/rhel-timemachine-container/timemachine-operator:v1.0.5
+        image: registry.connect.redhat.com/rhel-timemachine-container/timemachine-operator:v1.0.6
         name: manager
         env:
         - name: ANSIBLE_GATHERING
@@ -44,7 +43,7 @@ spec:
         - name: OPERATOR_NAME
           value: "timemachine-operator"
         - name: RELATED_IMAGE_TIMEMACHINE
-          value: registry.connect.redhat.com/rhel-timemachine-container/virtual-clock-testing-tool:sidecar-18.03.14
+          value: registry.connect.redhat.com/rhel-timemachine-container/virtual-clock-testing-tool:sidecar-18.03.24
         securityContext:
           allowPrivilegeEscalation: false
         livenessProbe:

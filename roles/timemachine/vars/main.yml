@@ -3,7 +3,7 @@
 # Default values for TimeMachine.
 
 # timemachine image URL
-image: registry.connect.redhat.com/rhel-timemachine-container/virtual-clock-testing-tool:sidecar-18.03.14
+image: registry.connect.redhat.com/rhel-timemachine-container/virtual-clock-testing-tool:sidecar-18.03.24
 # To pass image pull secrets
 imagePullSecrets: []
 

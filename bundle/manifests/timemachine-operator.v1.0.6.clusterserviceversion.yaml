@@ -24,17 +24,16 @@ metadata:
     capabilities: Basic Install
     categories: Developer Tools
     description: Time Machine operator enables time travel of OpenShift pods, without the need to change the system clock on any of the cluster nodes
-    containerImage: registry.connect.redhat.com/rhel-timemachine-container/timemachine-operator:v1.0.5
+    containerImage: registry.connect.redhat.com/rhel-timemachine-container/timemachine-operator:v1.0.6
     createdAt: 2021-10-30T11:43:29Z
     support: SolutionSoft Systems, Inc. - support@solution-soft.com
     operators.operatorframework.io/builder: operator-sdk-v1.12.0+git
     operators.operatorframework.io/project_layout: ansible.sdk.operatorframework.io/v1
-    olm.skipRange: ">=0.0.4 <1.0.5"
-  name: timemachine-operator.v1.0.5
+    olm.skipRange: ">=0.0.4 <1.0.6"
+  name: timemachine-operator.v1.0.6
   namespace: placeholder
 spec:
-  version: 1.0.5
-#  replaces: 1.0.3
+  version: 1.0.6
   apiservicedefinitions: {}
   customresourcedefinitions:
     owned:
@@ -240,8 +239,8 @@ Time travelling is done on the namespace level where all the (configured) target
                 - name: OPERATOR_NAME
                   value: timemachine-operator
                 - name: RELATED_IMAGE_TIMEMACHINE
-                  value: registry.connect.redhat.com/rhel-timemachine-container/virtual-clock-testing-tool:sidecar-18.03.14
-                image: registry.connect.redhat.com/rhel-timemachine-container/timemachine-operator:v1.0.5
+                  value: registry.connect.redhat.com/rhel-timemachine-container/virtual-clock-testing-tool:sidecar-18.03.24
+                image: registry.connect.redhat.com/rhel-timemachine-container/timemachine-operator:v1.0.6
                 imagePullPolicy: Always
                 livenessProbe:
                   httpGet:

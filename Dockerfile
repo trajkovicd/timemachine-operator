@@ -4,7 +4,7 @@ FROM quay.io/operator-framework/ansible-operator:v1.13.0
 LABEL name="Time Machine Operator" \
       vendor="SolutionSoft Systems, Inc." \
       version="v1.0" \
-      release="5" \
+      release="6" \
       summary="Time Machine creates virtual clocks for time shift testing of Applications." \
       description="Time Machine enables time travel of containers running in OpenShift pods without the need for changing the system clock on any of the nodes in your OpenShift cluster." \
       url="https://solution-soft.com" \
