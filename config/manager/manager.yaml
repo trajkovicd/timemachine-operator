@@ -9,6 +9,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: timemachine-operator
+#  namespace: timemachine-operator-system
   labels:
     control-plane: timemachine-operator
 spec:
@@ -21,19 +22,42 @@ spec:
       labels:
         control-plane: timemachine-operator
     spec:
-      serviceAccountName: timemachine-operator
+      securityContext:
+        runAsNonRoot: true
       containers:
-        - name: manager
-          image: registry.connect.redhat.com/rhel-timemachine-container/timemachine-operator:v1.0.1
-          imagePullPolicy: Always
-          args:
-            - "--enable-leader-election"
-            - "--leader-election-id=timemachine-operator"
-          env:
-            - name: ANSIBLE_GATHERING
-              value: explicit
-            - name: OPERATOR_NAME
-              value: "timemachine-operator"
-            - name: RELATED_IMAGE_TIMEMACHINE
-              value: registry.connect.redhat.com/rhel-timemachine-container/virtual-clock-testing-tool:sidecar-18.03.14
+      - args:
+        - --leader-elect
+        - --leader-election-id=timemachine-operator
+        image: registry.connect.redhat.com/rhel-timemachine-container/timemachine-operator:v1.0.5
+        name: manager
+        env:
+        - name: ANSIBLE_GATHERING
+          value: explicit
+        - name: WATCH_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name 
+        - name: OPERATOR_NAME
+          value: "timemachine-operator"
+        - name: RELATED_IMAGE_TIMEMACHINE
+          value: registry.connect.redhat.com/rhel-timemachine-container/virtual-clock-testing-tool:sidecar-18.03.14
+        securityContext:
+          allowPrivilegeEscalation: false
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 6789
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 6789
+          initialDelaySeconds: 5
+          periodSeconds: 10
+      serviceAccountName: timemachine-operator
       terminationGracePeriodSeconds: 10

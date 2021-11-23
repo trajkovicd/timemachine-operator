@@ -9,5 +9,5 @@ roleRef:
   name: timemachine-operator-leader-election-role
 subjects:
 - kind: ServiceAccount
-  name: default
+  name: controller-manager
   namespace: timemachine-operator-system

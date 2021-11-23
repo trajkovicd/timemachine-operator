@@ -3,10 +3,10 @@ kind: TimeMachine
 metadata:
   name: timemachine-sample
 spec:
-  tm_lichost: "54.152.68.164"
+  tm_lichost: "20.79.210.210"
   tm_licport: "57777"
   tm_licpass: "qwaszx"
   persistentvolume:
     storageclass: "ibmc-file-silver-gid"
   imagePullSecrets: []
-  replicaCount: 1
+#  replicaCount: 1

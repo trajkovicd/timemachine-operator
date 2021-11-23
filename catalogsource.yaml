@@ -1,0 +1,13 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: timemachine-operator
+  namespace: openshift-marketplace
+spec:
+  sourceType: grpc
+  image: quay.io/trajkovicd/timemachine-operator-index:v1.0.5
+  displayName: Time Machine Operator
+  publisher: Red Hat Partner
+  updateStrategy:
+    registryPoll:
+      interval: 5m

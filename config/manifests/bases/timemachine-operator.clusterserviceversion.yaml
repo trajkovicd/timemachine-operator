@@ -9,7 +9,7 @@ metadata:
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions: {}
-  description: Time Machine operator enables time travel of OpenShift pods, without the need for cging the system clock on any of the cluster nodes
+  description: Time Machine creates virtual clocks for time shift testing of applications
   displayName: Time Machine Operator
   icon:
   - base64data: ""
@@ -28,19 +28,19 @@ spec:
   - supported: true
     type: AllNamespaces
   keywords:
-  - timemachine-operator
-  - time-travel
-  - time-shift
-  - solution-soft
-  - time-machine
+  - time shift
+  - time travel
+  - virtual clocks
+  - time machine
+  - testing
   links:
   - name: Timemachine Operator
     url: https://timemachine-operator.domain
   maintainers:
   - email: dtrajkovic@solution-soft.com
-    name: Dragan-Trajkovic
+    name: Dragan Trajkovic
   maturity: alpha
   provider:
-    name: SolutionSoft Systems, Inc.
-    url: https://solution-soft.com
+    name: Solution-Soft
+    url: solution-soft.com
   version: 0.0.0
