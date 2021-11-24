@@ -12,12 +12,10 @@ metadata:
           },
           "spec": {
             "cluster_provider": "ibm",
-            //only for AWS
             "aws": {
               "accesspoint_id": "",
               "filesystem_id": ""
             },
-            //only for IBM
             "ibm": {
               "persistentvolume": {
                 "storageclass": "ibmc-file-silver-gid"            
@@ -26,7 +24,6 @@ metadata:
             "tm_licpass": "qwaszx",
             "tm_licport": "57777"
             },
-            //common values for both IBM and AWS
             "imagePullSecrets": [],
           }
         }
@@ -39,12 +36,11 @@ metadata:
     support: SolutionSoft Systems, Inc. - support@solution-soft.com
     operators.operatorframework.io/builder: operator-sdk-v1.12.0+git
     operators.operatorframework.io/project_layout: ansible.sdk.operatorframework.io/v1
-    olm.skipRange: ">=0.0.4 <1.0.6"
+    olm.skipRange: ">=0.0.4 <1.0.7"
   name: timemachine-operator.v1.0.7
   namespace: placeholder
 spec:
   version: 1.0.7
-  replaces: 1.0.6
   apiservicedefinitions: {}
   customresourcedefinitions:
     owned:

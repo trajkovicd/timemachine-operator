@@ -5,7 +5,7 @@ metadata:
   namespace: openshift-marketplace
 spec:
   sourceType: grpc
-  image: quay.io/trajkovicd/timemachine-operator-index:v1.0.6
+  image: quay.io/trajkovicd/timemachine-operator-index:v1.0.7
   displayName: Time Machine Operator
   publisher: Red Hat Partner
   updateStrategy:
