@@ -32,7 +32,7 @@
           name: timemachine-pvc
           namespace: '{{ ansible_operator_meta.namespace }}'
         spec:
-          storageClassName: "{{ persistentvolume.storageclass }}"
+          storageClassName: "{{ ibm.persistentvolume.storageclass }}"
           accessModes:
             - ReadWriteMany
           resources:

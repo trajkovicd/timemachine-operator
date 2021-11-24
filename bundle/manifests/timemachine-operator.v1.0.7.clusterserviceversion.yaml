@@ -20,10 +20,10 @@ metadata:
               "persistentvolume": {
                 "storageclass": "ibmc-file-silver-gid"            
               },
+            },
             "tm_lichost": "20.79.210.210",
             "tm_licpass": "qwaszx",
             "tm_licport": "57777"
-            },
             "imagePullSecrets": [],
           }
         }
@@ -63,20 +63,58 @@ spec:
         x-descriptors:
           - urn:alm:descriptor:com.tectonic.ui:select:ibm
           - urn:alm:descriptor:com.tectonic.ui:select:aws
+      - description: AWS parameters
+        displayName: AWS
+        path: aws
+        x-descriptors:
+          - >-
+            urn:alm:descriptor:com.tectonic.ui:fieldDependency:cluster_provider:aws
       - description: AWS File System ID
         displayName: AWS File System ID
         path: aws.filesystem_id
         x-descriptors:
           - >-
-            urn:alm:descriptor:com.tectonic.ui:fieldDependency:deployment_mode:aws
+            urn:alm:descriptor:com.tectonic.ui:fieldDependency:cluster_provider:aws
           - 'urn:alm:descriptor:com.tectonic.ui:text'
+      - description: AWS Access point ID
+        displayName: AWS Access point ID
+        path: aws.accesspoint_id
+        x-descriptors:
+          - >-
+            urn:alm:descriptor:com.tectonic.ui:fieldDependency:cluster_provider:aws
+          - 'urn:alm:descriptor:com.tectonic.ui:text'
+      - description: IBM parameters
+        displayName: IBM
+        path: ibm
+        x-descriptors:
+          - >-
+            urn:alm:descriptor:com.tectonic.ui:fieldDependency:cluster_provider:ibm
+      - description: IBM Cloud Storage class
+        displayName: IBM Cloud Storage class
+        path: ibm.persistentvolume.storageclass
+        x-descriptors:
+          - >-
+            urn:alm:descriptor:com.tectonic.ui:fieldDependency:cluster_provider:ibm
+          - 'urn:alm:descriptor:com.tectonic.ui:select:ibmc-file-silver-gid'
+      - description: TMFLS host
+        displayName: TM_LICHOST
+        path: tm_lichost
+        x-descriptors:
+          - 'urn:alm:descriptor:com.tectonic.ui:text'
+      - description: TMFLS Security Key
+        displayName: TM_LICPASS
+        path: tm_licpass
+        x-descriptors:
+          - 'urn:alm:descriptor:com.tectonic.ui:text'
+      - description: TMFLS Port
+        displayName: TM_LICPORT
+        path: tm_licport
+        x-descriptors:
+          - 'urn:alm:descriptor:com.tectonic.ui:text'         
       version: v1alpha1
   description: "Time Machine operator enables time travel of OpenShift pods/deployments.
   
-
   To time travel a pod where your application is, you just need to install the Time Machine operator and create a Time Machine custom resource in the same namespace, without the need of changing the container images of the application you’re using, or adding containers to the pod with your application.
-
-
 Time travelling is done on the namespace level where all the (configured) target pods/deployments see the same virtual time."
   displayName: Time Machine Operator
   icon:
