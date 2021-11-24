@@ -1,5 +1,28 @@
 ---
 # tasks file for TimeMachine
+- name: Get the EFS operator csv info
+  k8s_info:
+    kind: PackageManifest
+    name: "aws-efs-operator"
+    namespace: "{{ ansible_operator_meta.namespace }}"
+  register: efs_csv_info
+  when: cluster_provider is defined and cluster_provider == 'aws'
+- name: Install EFS operator
+  k8s:
+    definition:
+      apiVersion: operators.coreos.com/v1alpha1
+      kind: Subscription
+      metadata:
+        name: aws-efs-operator
+        namespace: openshift-operators
+      spec:
+        channel: stable
+        installPlanApproval: Automatic
+        name: aws-efs-operator
+        source: community-operators
+        sourceNamespace: openshift-marketplace
+        startingCSV: "{{ efs_csv_info.resources[0].status.channels[0].currentCSV }}"
+  when: cluster_provider is defined and cluster_provider == 'aws'        
 - name: create pvc for timemachine
   k8s:
      definition:
@@ -15,6 +38,7 @@
           resources:
             requests:
               storage: 50Mi
+  when: cluster_provider is defined and cluster_provider == 'ibm'
 - name: create config map timemachine-configmap
   k8s:
     definition:
@@ -81,6 +105,7 @@
           serviceAccount: timemachine-operator
         strategy:
           type: Recreate
+  when: cluster_provider is defined and cluster_provider == 'ibm'
 - name: create service for timemachine
   k8s:
     definition:

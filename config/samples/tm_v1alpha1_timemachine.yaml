@@ -3,10 +3,18 @@ kind: TimeMachine
 metadata:
   name: timemachine-sample
 spec:
-  tm_lichost: "20.79.210.210"
-  tm_licport: "57777"
-  tm_licpass: "qwaszx"
-  persistentvolume:
-    storageclass: "ibmc-file-silver-gid"
+  cluster_provider: "ibm"
+  //only for AWS
+  aws:
+    accesspoint_id: ""
+    filesystem_id: ""
+  //only for IBM
+  ibm:
+    persistentvolume:
+      storageclass: "ibmc-file-silver-gid"  
+    tm_lichost: "20.79.210.210"
+    tm_licport: "57777"
+    tm_licpass: "qwaszx"
+  //common values for both IBM and AWS
   imagePullSecrets: []
 #  replicaCount: 1

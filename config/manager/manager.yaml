@@ -27,7 +27,7 @@ spec:
       - args:
         - --leader-elect
         - --leader-election-id=timemachine-operator
-        image: registry.connect.redhat.com/rhel-timemachine-container/timemachine-operator:v1.0.6
+        image: registry.connect.redhat.com/rhel-timemachine-container/timemachine-operator:v1.0.7
         name: manager
         env:
         - name: ANSIBLE_GATHERING
