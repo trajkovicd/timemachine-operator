@@ -13,8 +13,7 @@ metadata:
           "spec": {
             "cluster_provider": "ibm",
             "aws": {
-              "accesspoint_id": "",
-              "filesystem_id": ""
+              "shared_volume_name": "",
             },
             "ibm": {
               "persistentvolume": {
@@ -69,16 +68,9 @@ spec:
         x-descriptors:
           - >-
             urn:alm:descriptor:com.tectonic.ui:fieldDependency:cluster_provider:aws
-      - description: AWS File System ID
-        displayName: AWS File System ID
-        path: aws.filesystem_id
-        x-descriptors:
-          - >-
-            urn:alm:descriptor:com.tectonic.ui:fieldDependency:cluster_provider:aws
-          - 'urn:alm:descriptor:com.tectonic.ui:text'
-      - description: AWS Access point ID
-        displayName: AWS Access point ID
-        path: aws.accesspoint_id
+      - description: EFS Operator Shared Volume Name
+        displayName: Shared Volume Name
+        path: aws.shared_volume_name
         x-descriptors:
           - >-
             urn:alm:descriptor:com.tectonic.ui:fieldDependency:cluster_provider:aws

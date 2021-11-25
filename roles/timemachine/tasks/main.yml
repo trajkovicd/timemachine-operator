@@ -22,7 +22,7 @@
         source: community-operators
         sourceNamespace: openshift-marketplace
         startingCSV: "{{ efs_csv_info.resources[0].status.channels[0].currentCSV }}"
-  when: cluster_provider is defined and cluster_provider == 'aws'        
+  when: cluster_provider is defined and cluster_provider == 'aws'
 - name: create pvc for timemachine
   k8s:
      definition:
@@ -84,9 +84,6 @@
               volumeMounts:
                 - mountPath: /opt/ssstm
                   name: timemachine-volume-mount
-#                - mountPath: /etc/ld.so.preload
-#                  name: timemachine-configmap
-#                  subPath: ld.so.preload              
               securityContext: {}                
               ports:
                 - name: timemachine
@@ -97,15 +94,61 @@
             - name: timemachine-volume-mount
               persistentVolumeClaim:
                 claimName: timemachine-pvc                  
-#            - configMap: 
-#                defaultMode: 420
-#                name: timemachine-configmap
-#              name: timemachine-configmap       
           serviceAccountName: timemachine-operator
           serviceAccount: timemachine-operator
         strategy:
           type: Recreate
   when: cluster_provider is defined and cluster_provider == 'ibm'
+- name: deploy timemachine
+  k8s:
+    definition:
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: timemachine
+        namespace: '{{ ansible_operator_meta.namespace }}'
+        labels:
+          app: timemachine
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: timemachine
+        template:
+          metadata:
+            labels:
+              app: timemachine
+          spec:
+            serviceAccount: timemachine-operator
+            containers:
+            - name: timemachine
+              image: "{{ lookup('env','RELATED_IMAGE_TIMEMACHINE') }}"
+              imagePullPolicy: Always              
+              env:
+              - name: TM_LICHOST
+                value: "{{ tm_lichost }}"
+              - name: TM_LICPORT
+                value: "{{ tm_licport }}"
+              - name: TM_LICPASS
+                value: "{{ tm_licpass }}"
+              volumeMounts:
+                - mountPath: /opt/ssstm
+                  name: timemachine-volume
+              securityContext: {}                
+              ports:
+                - name: timemachine
+                  containerPort: 7800
+                - name: server-info
+                  containerPort: 5777
+            volumes:
+            - name: timemachine-volume
+              persistentVolumeClaim:
+                claimName: pvc-{{  aws.shared_volume_name  }}                  
+          serviceAccountName: timemachine-operator
+          serviceAccount: timemachine-operator
+        strategy:
+          type: Recreate
+  when: cluster_provider is defined and cluster_provider == 'aws'
 - name: create service for timemachine
   k8s:
     definition:
@@ -123,7 +166,6 @@
           - protocol: TCP
             port: 7800
             targetPort: timemachine
-#            nodePort: 30454
         type: NodePort
 - name: create service for server-info
   k8s:
@@ -142,7 +184,6 @@
           - protocol: TCP
             port: 5777
             targetPort: server-info
-#            nodePort: 31454
         type: NodePort
 - name: create route for timemachine
   k8s:
